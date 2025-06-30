@@ -4,31 +4,265 @@
     <meta charset="UTF-8">
     <title>Tìm kiếm Tin tức</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        form { margin-bottom: 20px; }
-        input, button { padding: 8px; margin-right: 8px; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin: 8px 0; }
-        strong { color: #007BFF; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f6fb;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 28px 24px 28px;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3a4b;
+            margin-bottom: 28px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        label {
+            font-weight: 500;
+            color: #3a4a5b;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f9fafb;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus {
+            border: 1.5px solid #007BFF;
+            outline: none;
+        }
+        button {
+            padding: 10px 0;
+            background: linear-gradient(90deg, #007BFF 60%, #0056b3 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+        }
+        button:hover {
+            background: linear-gradient(90deg, #0056b3 60%, #007BFF 100%);
+        }
+        .results {
+            margin-top: 18px;
+        }
+        .results h2 {
+            color: #007BFF;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            background: #f1f7ff;
+            border-radius: 6px;
+            padding: 10px 14px;
+            box-shadow: 0 1px 4px rgba(0,123,255,0.04);
+        }
+        strong {
+            color: #007BFF;
+        }
+        a {
+            color: #2d3a4b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <h1>Tìm kiếm Tin tức từ nhiều nguồn</h1>
-    <form method="POST">
-        <label>Từ khóa:</label>
-        <input type="text" name="keyword" required>
-        <label>Thành phố (tùy chọn):</label>
-        <input type="text" name="location">
-        <button type="submit">Tìm kiếm</button>
-    </form>
+    <div class="container">
+        <nav style="display:flex;justify-content:center;gap:18px;margin-bottom:18px;align-items:center;">
+            <a href="#home" style="font-weight:bold;color:#007BFF;font-size:1.08em;text-decoration:none;padding:6px 16px;border-radius:6px;background:#eaf3ff;">Trang Chủ</a>
+            <a href="#search" style="font-weight:bold;color:#28a745;font-size:1.08em;text-decoration:none;padding:6px 16px;border-radius:6px;background:#eafbe7;">Tìm kiếm</a>
+            <a href="#about" style="font-weight:bold;color:#ff9800;font-size:1.08em;text-decoration:none;padding:6px 16px;border-radius:6px;background:#fff7e6;">About Us</a>
+            <a href="#featured" id="featuredTab" style="font-weight:bold;color:#0056b3;font-size:1.08em;text-decoration:none;padding:6px 16px;border-radius:6px;background:#eaf3ff;display:flex;align-items:center;gap:8px;">
+                Trang báo nổi bật
+                
+            </a>
+        </nav>
+        <div id="home" style="display:none;margin-bottom:18px;text-align:center;">
+            <div style="background: linear-gradient(90deg, #007BFF 60%, #0056b3 100%); color: #fff; border-radius: 16px; padding: 32px 18px 24px 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 420px; margin: 32px auto 18px auto;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="News Icon" style="height:64px;width:64px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.10);border-radius:50%;background:#fff;padding:8px;">
+                <h2 style="margin-bottom:12px;font-size:2em;font-weight:bold;letter-spacing:1px;">Chào mừng đến với Trang Chủ</h2>
+                <p style="font-size:1.15em;line-height:1.6;margin-bottom:0;">Website giúp bạn tìm kiếm tin tức mới nhất từ nhiều nguồn báo lớn tại Việt Nam.<br>Nhanh chóng, tiện lợi, đa dạng và hoàn toàn miễn phí!</p>
+            </div>
+        </div>
+        <div id="about" style="display:none;margin-bottom:18px;text-align:center;">
+            <div style="background: linear-gradient(90deg, #ff9800 60%, #ffb347 100%); color: #fff; border-radius: 16px; padding: 32px 18px 24px 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 420px; margin: 32px auto 18px auto;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="About Us Icon" style="height:64px;width:64px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.10);border-radius:50%;background:#fff;padding:8px;">
+                <h2 style="margin-bottom:12px;font-size:2em;font-weight:bold;letter-spacing:1px;">About Us</h2>
+                <p style="font-size:1.15em;line-height:1.6;margin-bottom:0;">Chúng tôi là nhóm phát triển với mong muốn mang đến trải nghiệm tìm kiếm tin tức đa nguồn, chính xác và tiện lợi nhất cho người dùng Việt Nam.<br>Liên hệ: <a href='mailto:ngotam120704@gmail.com' style='color:#fff;text-decoration:underline;'>ngotam120704@gmail.com</a></p>
+            </div>
+        </div>
+        <div id="featured" style="display:none;margin-bottom:18px;text-align:center;">
+            <div style="background: linear-gradient(90deg, #0056b3 60%, #007BFF 100%); color: #fff; border-radius: 16px; padding: 32px 18px 24px 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 480px; margin: 32px auto 18px auto;">
+                <h2 style="margin-bottom:18px;font-size:2em;font-weight:bold;letter-spacing:1px;">Trang báo nổi bật</h2>
+                <div style="display:flex;justify-content:center;gap:32px;align-items:center;margin-bottom:18px;">
+                    <div style="text-align:center;">
+                        <a href="https://vnexpress.net/" target="_blank"><img src="https://th.bing.com/th/id/R.6094b61245356d7064e56972044b4102?rik=uIbv13kLKIAWtg&riu=http%3a%2f%2fa349.phobos.apple.com%2fus%2fr30%2fPurple6%2fv4%2f63%2f2a%2f0c%2f632a0c6e-93af-65fd-5546-a6def97e6390%2fmzl.lnfxbqow.png&ehk=%2fta7J9q5Dgu7Lev%2f65H354BByFgtBPSlcb4PFM7Krms%3d&risl=&pid=ImgRaw&r=0" alt="VNEXPRESS" style="height:48px;width:auto;background:#fff;border-radius:8px;padding:4px 10px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:6px;"></a>
+                        <div style="color:#fff;font-weight:bold;">VNEXPRESS</div>
+                        
+                    </div>
+                    <div style="text-align:center;">
+                        <a href="https://tuoitre.vn/" target="_blank"><img src="https://th.bing.com/th/id/OIP.fyG7HKz_pBunV50Zas6YHQHaHa?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Tuổi Trẻ" style="height:48px;width:48px;background:#fff;border-radius:8px;padding:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:6px;"></a>
+                        <div style="color:#fff;font-weight:bold;">Tuổi Trẻ</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <a href="https://thanhnien.vn/"target="_blank"><img src="https://th.bing.com/th/id/OIP.efTWc4YPTOh5CSHmgfp_EQHaHa?o=7rm=3&rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Thanh Niên" style="height:48px;width:48px;background:#fff;border-radius:8px;padding:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:6px;"></a>
+                        <div style="color:#fff;font-weight:bold;">Thanh Niên</div>
+                    </div>
+                </div>
+                <p style="font-size:1.12em;line-height:1.6;margin-bottom:0;">Tổng hợp các nguồn báo uy tín, cập nhật nhanh nhất các tin tức nổi bật trong nước và quốc tế.</p>
+            </div>
+        </div>
+        <div id="searchSection">
+            <div style="background: linear-gradient(90deg, #28a745 60%, #007BFF 100%); color: #fff; border-radius: 16px; padding: 24px 18px 18px 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 480px; margin: 32px auto 18px auto; text-align:center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3031/3031293.png" alt="Search Icon" style="height:56px;width:56px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.10);border-radius:50%;background:#fff;padding:7px;">
+                <h1 style="margin-bottom:10px;font-size:1.7em;font-weight:bold;letter-spacing:1px;">Tìm kiếm Tin tức từ nhiều nguồn</h1>
+                <p style="font-size:1.08em;line-height:1.5;margin-bottom:0;">Nhập từ khóa và thành phố để tìm kiếm tin tức mới nhất, đa dạng từ các báo lớn.</p>
+            </div>
+            <div style="position:relative;display:flex;justify-content:flex-end;margin-bottom:10px;">
+                <button id="optionBtn" type="button" style="background:#f1f7ff;border:none;border-radius:6px;padding:6px 16px;font-weight:bold;color:#007BFF;cursor:pointer;box-shadow:0 1px 4px rgba(0,123,255,0.04);">Tùy chọn &#x25BC;</button>
+                <div id="optionBox" style="display:none;position:absolute;top:38px;right:0;z-index:10;background:#fff;border:1px solid #d1d5db;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:16px 20px;min-width:220px;">
+                    <strong>Thông tin tùy chọn:</strong>
+                    <ul style="margin:10px 0 0 0;padding:0 0 0 18px;font-size:0.98em;">
+                        <li>Bạn có thể lọc theo từ khóa, thành phố.</li>
+                        <li>Kết quả lấy từ nhiều nguồn báo lớn.</li>
+                        <li>Chọn mục lục phía trên để xem từng loại tin.</li>
+                        <li>Liên hệ hỗ trợ: <a href="mailto:support@example.com">ngotam120704@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                const btn = document.getElementById('optionBtn');
+                const box = document.getElementById('optionBox');
+                btn.onclick = function() {
+                    box.style.display = (box.style.display === 'none' || box.style.display === '') ? 'block' : 'none';
+                };
+                document.addEventListener('click', function(e) {
+                    if (!btn.contains(e.target) && !box.contains(e.target)) {
+                        box.style.display = 'none';
+                    }
+                });
+            </script>
+            <form method="POST">
+                <label for="keyword">Từ khóa:</label>
+                <input type="text" id="keyword" name="keyword" required>
+                <label for="location">Thành phố (tùy chọn):</label>
+                <input type="text" id="location" name="location" value="{{ request.form.location or '' }}">
+            <fieldset style="border:none; margin-top:12px;">
+                <legend style="font-weight:600;">Chọn nguồn báo:</legend>
+                <label><input type="checkbox" name="sources" value="vnexpress"
+                    {% if 'vnexpress' in request.form.getlist('sources') or not request.form.getlist('sources') %}checked{% endif %}>
+                    VNEXPRESS
+                
+                </label><br>
 
-    {% if results %}
-        <h2>Kết quả:</h2>
-        <ul>
-            {% for news in results %}
-                <li><strong>[{{ news.source }}]</strong> <a href="{{ news.link }}" target="_blank">{{ news.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+                <label><input type="checkbox" name="sources" value="tuoitre"
+                    {% if 'tuoitre' in request.form.getlist('sources') or not request.form.getlist('sources') %}checked{% endif %}>
+                    Tuổi Trẻ
+
+                </label><br>
+
+                <label>
+                    <input type="checkbox" name="sources" value="thanhnien"
+                    {% if 'thanhnien' in request.form.getlist('sources') or not request.form.getlist('sources') %}checked{% endif %}>
+                    Thanh Niên
+                </label><br>
+
+                <label>
+                    <input type="checkbox" name="sources" value="tienphong"
+                    {% if 'tienphong' in request.form.getlist('sources') or not request.form.getlist('sources') %}checked{% endif %}>
+                    Tiền Phong
+                </label>
+
+            </fieldset>
+
+                <button type="submit">Tìm kiếm</button>
+
+            </form>
+            {% if results %}
+                <div class="results">
+                    <h2>Kết quả:</h2>
+                    <ul>
+                        {% for news in results %}
+                            <li style="display: flex; align-items: center; gap: 10px;">
+                                {% if news.source == 'VNEXPRESS' %}
+                                    <img src="https://th.bing.com/th/id/OIP.YJS2EkU1bXBk5WlyBEtBAgHaHa?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="VNEXPRESS" style="height:28px;width:auto;vertical-align:middle;">
+                                    <span style="font-weight:bold;color:#a10000;font-size:1.05em;">VNEXPRESS</span>
+                                {% elif news.source == 'Tuổi Trẻ' %}
+                                    <img src="https://th.bing.com/th/id/OIP.Hn8p5mMDOWUwfamGgGirwAHaHa?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Tuổi Trẻ" style="height:28px;width:28px;vertical-align:middle;">
+                                    <span style="font-weight:bold;color:#007bff;font-size:1.05em;">Tuổi Trẻ</span>
+                                {% elif news.source == 'Thanh Niên' %}
+                                    <img src="https://th.bing.com/th/id/OIP.efTWc4YPTOh5CSHmgfp_EQHaHa?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Thanh Niên" style="height:28px;width:28px;vertical-align:middle;">
+                                    <span style="font-weight:bold;color:#0056b3;font-size:1.05em;">Thanh Niên</span>
+                                {% elif news.source == 'Tiền Phong' %}
+                                     <img src="https://upload.wikimedia.org/wikipedia/vi/thumb/4/4f/BaoTienPhong_Logo.svg/320px-BaoTienPhong_Logo.svg.png"
+                                    alt="Tiền Phong" style="height:28px;width:auto;vertical-align:middle;">
+                                    <span style="font-weight:bold;color:#d32f2f;font-size:1.05em;">Tiền Phong</span>
+                                {% endif %}
+                                <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 12px;">
+                                {% if news.image %}
+                                    <img src="{{ news.image }}" alt="Ảnh bài báo" style="height:64px;width:64px;object-fit:cover;border-radius:6px;">
+                                {% endif %}
+                                <div>
+                                    <a href="{{ news.link }}" target="_blank" style="font-size:1.05em;font-weight:bold;line-height:1.4;">{{ news.title }}</a>
+                                    {% if news.summary %}
+                                        <p style="margin: 4px 0 0 0; font-size: 0.95em; color: #555;">{{ news.summary }}</p>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        // Menu tab switching
+        const homeTab = document.querySelector('a[href="#home"]');
+        const searchTab = document.querySelector('a[href="#search"]');
+        const aboutTab = document.querySelector('a[href="#about"]');
+        const featuredTab = document.getElementById('featuredTab');
+        const homeDiv = document.getElementById('home');
+        const aboutDiv = document.getElementById('about');
+        const searchSection = document.getElementById('searchSection');
+        const featuredDiv = document.getElementById('featured');
+        function showTab(tab) {
+            homeDiv.style.display = tab === 'home' ? 'block' : 'none';
+            aboutDiv.style.display = tab === 'about' ? 'block' : 'none';
+            searchSection.style.display = tab === 'search' ? 'block' : 'none';
+            featuredDiv.style.display = tab === 'featured' ? 'block' : 'none';
+        }
+        homeTab.onclick = function(e) { e.preventDefault(); showTab('home'); };
+        searchTab.onclick = function(e) { e.preventDefault(); showTab('search'); };
+        aboutTab.onclick = function(e) { e.preventDefault(); showTab('about'); };
+        featuredTab.onclick = function(e) { e.preventDefault(); showTab('featured'); };
+        // Mặc định hiển thị phần tìm kiếm
+        showTab('search');
+    </script>
 </body>
 </html>
