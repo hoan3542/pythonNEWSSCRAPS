@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả Tìm kiếm Tin tức</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: url('https://sdmntprnorthcentralus.oaiusercontent.com/files/00000000-8cd0-622f-a246-92d7c0511f5e/raw?se=2025-07-14T10%3A57%3A21Z&sp=r&sv=2024-08-04&sr=b&scid=1e5971da-8ea5-5d6e-ba44-cf113723e677&skoid=04233560-0ad7-493e-8bf0-1347c317d021&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-13T22%3A52%3A02Z&ske=2025-07-14T22%3A52%3A02Z&sks=b&skv=2024-08-04&sig=Vum88RZt2Q/atm1pY/JpZL4WNh8nx3KoovAnOgarVN0%3D') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            padding: 48px 40px 32px 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 32px;
+            font-size: 2.2em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .results {
+            margin-top: 32px;
+            background: #f9fafb;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,123,255,0.06);
+            padding: 24px 32px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        li {
+            background: #eaf3ff;
+            border-radius: 10px;
+            padding: 18px 18px 14px 18px;
+            box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 18px;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.08em;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kết quả Tìm kiếm Tin tức</h1>
+        {% if results %}
+        <div class="results">
+            <ul>
+                {% for news in results %}
+                <li style="background: #fff; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,123,255,0.10); padding: 22px 22px 18px 22px; display: flex; flex-direction: column; gap: 10px; transition: box-shadow 0.2s; position:relative;">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
+                        {% if news.source == 'VNEXPRESS' %}
+                        <img src="https://th.bing.com/th/id/R.6094b61245356d7064e56972044b4102?rik=uIbv13kLKIAWtg&riu=http%3a%2f%2fa349.phobos.apple.com%2fus%2fr30%2fPurple6%2fv4%2f63%2f2a%2f0c%2f632a0c6e-93af-65fd-5546-a6def97e6390%2fmzl.lnfxbqow.png&ehk=%2fta7J9q5Dgu7Lev%2f65H354BByFgtBPSlcb4PFM7Krms%3d&risl=&pid=ImgRaw&r=0" alt="VNEXPRESS" style="height:28px;width:28px;border-radius:6px;box-shadow:0 2px 8px rgba(0,123,255,0.10);">
+                        {% elif news.source == 'Thanh Niên' %}
+                        <img src="https://th.bing.com/th/id/OIP.efTWc4YPTOh5CSHmgfp_EQHaHa?o=7rm=3&rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Thanh Niên" style="height:28px;width:28px;border-radius:6px;box-shadow:0 2px 8px rgba(0,86,179,0.10);">
+                        {% elif news.source == 'Tuổi Trẻ' %}
+                        <img src="https://th.bing.com/th/id/OIP.fyG7HKz_pBunV50Zas6YHQHaHa?rs=1&pid=ImgDetMain&cb=idpwebpc2" alt="Tuổi Trẻ" style="height:28px;width:28px;border-radius:6px;box-shadow:0 2px 8px rgba(40,167,69,0.10);">
+                        {% endif %}
+                        <span style="font-weight:bold;font-size:1.08em;color:#007BFF;">{{ news.source }}</span>
+                    </div>
+                <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 16px;">
+                        {% if news.image %}
+                <img src="{{ news.image }}" alt="Ảnh bài báo"
+                        style="height: 120px; width: 180px; object-fit: cover; border-radius: 8px;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); flex-shrink: 0;">
+                    {% endif %}
+                    <div style="flex: 1;">
+                        <a href="{{ news.link }}" target="_blank"
+                        style="font-size: 1.2em; font-weight: bold; line-height: 1.4;
+                                color: #007BFF; display: block; margin-bottom: 4px;">
+                        {{ news.title }}
+                        </a>
+                        {% if news.summary %}
+                        <p style="margin: 4px 0 0 0; font-size: 1em; color: #444; line-height: 1.6;">
+                            {{ news.summary }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                      </div>
+                    <div style="position:absolute;top:12px;right:18px;background:#eaf3ff;padding:4px 12px;border-radius:8px;font-size:0.95em;color:#888;font-weight:500;box-shadow:0 2px 8px rgba(0,123,255,0.06);">Tin nổi bật</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <div class="results">
+            <p>Không tìm thấy kết quả phù hợp.</p>
+        </div>
+        {% endif %}
+        <div style="text-align:center;margin-top:32px;">
+            <a href="/" style="background:#007BFF;color:#fff;padding:12px 32px;border-radius:8px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px rgba(0,123,255,0.10);">Quay lại trang tìm kiếm</a>
+        </div>
+    </div>
+</body>
+</html>
